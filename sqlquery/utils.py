@@ -1,12 +1,12 @@
-from django.db import connection
+import json
+
+from django.core import serializers
 
 
-def log_queries(func):
-    def wrapper(*args, **kwargs):
-        response = func(*args, **kwargs)
-        for query in connection.queries:
-            _sql = query['sql']
-            _time = query['time']
-            print(f'QUERY: {_sql.replace("", "")}\nTIME: {_time}s\n\n')
-        return response
-    return wrapper
+def serialize(queryset, _fields=None, _type="json"):
+    if _fields is not None:
+        serialized_data = serializers.serialize(
+            _type, queryset, fields=_fields)
+    else:
+        serialized_data = serializers.serialize(_type, queryset)
+    return json.loads(serialized_data)
