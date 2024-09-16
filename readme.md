@@ -24,7 +24,17 @@
 
     5. Run migrations: python3 manage.py migrate
 
-    6. Start server: python3 manage.py runserver <PORT> 
+    6. Populate dummy data for testing as:-
+        
+        . activate virtualenv
+
+        . python manage.py shell (and write following lines in shell)
+
+        . from sqlquery.factory import *
+        
+        . ProductFactory.create_batch(100) # This will create 100 products in DB.
+
+    7. Start server: python3 manage.py runserver <PORT> 
 
 
 ![alt text](image.png)
